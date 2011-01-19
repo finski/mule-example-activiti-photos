@@ -1,0 +1,13 @@
+<projectDescription>
+  <name>picture</name>
+  <comment>A small example of how to integrate Mule ESB + Activiti</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

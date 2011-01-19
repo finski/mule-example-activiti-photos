@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:activiti="http://www.mulesoft.org/schema/mule/activiti"
+    xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+    xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+    xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax"
+    xmlns:context="http://www.springframework.org/schema/context"
+    
+    xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+        http://www.mulesoft.org/schema/mule/activiti http://www.mulesoft.org/schema/mule/activiti/3.1/mule-activiti.xsd
+        http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.1/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd
+        http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+        http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/3.1/mule-ajax.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    ">
+
+    <ajax:connector name="ajaxServer" serverUrl="http://0.0.0.0:8999/" resourceBase="${app.home}/docroot"/>
+    
+    <activiti:connector name="actServer"
+        activitiServerURL="http://localhost:8080/activiti-rest/service/"
+        username="kermit" password="kermit" />
+
+    <flow name="receiveRequests">
+        <http:inbound-endpoint 
+            address="http://localhost:9090/picture-request/services/receiveRequest" 
+            exchange-pattern="request-response">
+            <response>
+                <script:transformer>
+                    <script:script engine="groovy">
+                        return "Success"
+                    </script:script>
+                </script:transformer>
+            </response>
+        </http:inbound-endpoint>
+        <http:body-to-parameter-map-transformer />
+        <script:component>
+            <script:script engine="groovy">
+                Map map = new HashMap()
+                map.put("processDefinitionId", "pictureRequest:1") //the id of the definition
+                map.put("imageName", payload.get("imageName"))
+                map.put("user", payload.get("user")) 
+                return map
+            </script:script>
+        </script:component>
+        <activiti:outbound-endpoint description="createRequestProcess">
+            <activiti:create-process />
+        </activiti:outbound-endpoint>
+    </flow>
+</mule>
