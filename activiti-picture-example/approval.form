@@ -2,3 +2,11 @@
 <p>
   The user: <b>${user}</b> wants the high definition version of the image <b>${imageName}</b>.
 </p>
+<p>
+  Do you approve this?
+  <select name="approvalConfirmed">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+   </select>
+   <input type="hidden" name="approvalConfirmed_type" value="Boolean" />
+</p>

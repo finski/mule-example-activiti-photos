@@ -9,9 +9,23 @@
 
         <startEvent id="theStart" />
 
-        <sequenceFlow id="flow1" sourceRef="theStart" targetRef="myManualTask" />
+        <sequenceFlow id="flow1" sourceRef="theStart" targetRef="needsApprovalTask" />
 
-        <userTask id="myManualTask" name="Stub task" activiti:formKey="approval.form">
+        <serviceTask id="needsApprovalTask" name="Needs approval" activiti:class="com.picturerequest.NeedsApprovalDelegate" />
+        
+        <sequenceFlow id="flow2" sourceRef="needsApprovalTask" targetRef="gateway" />
+
+        <exclusiveGateway id="gateway" name="Needs approval?" />
+    
+        <sequenceFlow id="flow3" sourceRef="gateway" targetRef="confirmApproval">
+          <conditionExpression xsi:type="tFormalExpression">${needsApproval}</conditionExpression>
+        </sequenceFlow>
+            
+        <sequenceFlow id="flow4" sourceRef="gateway" targetRef="chargeAccount">
+          <conditionExpression xsi:type="tFormalExpression">${!needsApproval}</conditionExpression>
+        </sequenceFlow>
+
+        <userTask id="confirmApproval" name="Approve the picture request" activiti:formKey="approval.form">
             <potentialOwner>
                 <resourceAssignmentExpression>
                     <formalExpression>user(kermit), group(management)</formalExpression>
@@ -19,10 +33,30 @@
             </potentialOwner>
         </userTask>
   
-        <sequenceFlow id="flow2" sourceRef="myManualTask" targetRef="theEnd" />
+        <sequenceFlow id="flow5" sourceRef="confirmApproval" targetRef="gateway2" />
+  
+        <exclusiveGateway id="gateway2" name="Is approval confirmed?" />
+    
+        <sequenceFlow id="flow6" sourceRef="gateway2" targetRef="chargeAccount">
+          <conditionExpression xsi:type="tFormalExpression">${approvalConfirmed}</conditionExpression>
+        </sequenceFlow>
+            
+        <sequenceFlow id="flow7" sourceRef="gateway2" targetRef="theEnd">
+          <conditionExpression xsi:type="tFormalExpression">${!approvalConfirmed}</conditionExpression>
+        </sequenceFlow>
+
+        <serviceTask id="chargeAccount" name="Charge account" activiti:class="com.picturerequest.ChargeDelegate">
+            <extensionElements>
+                <activiti:field name="wsdl" expression="http://localhost:8291/chargeService?wsdl" />
+                <activiti:field name="operation" expression="chargeAccount" />
+                <activiti:field name="parameters" expression="${user}, ${imageName}" />
+                <activiti:field name="returnValue" expression="myReturn" />
+            </extensionElements>
+        </serviceTask>
+        
+        <sequenceFlow id="flow8" sourceRef="chargeAccount" targetRef="theEnd" />
 
         <endEvent id="theEnd" />
 
     </process>
-
 </definitions>

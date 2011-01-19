@@ -53,4 +53,13 @@
             <activiti:create-process />
         </activiti:outbound-endpoint>
     </flow>
+    
+    <ajax:endpoint name="ajax-endpoint" channel="/requestCharged"/>
+
+    <flow name="chargeAccount">
+        <inbound-endpoint address="http://localhost:8291/chargeService" />
+        <cxf:jaxws-service serviceClass="com.picturerequest.ChargeServiceImpl" />
+        <component class="com.picturerequest.ChargeServiceImpl" />
+        <outbound-endpoint ref="ajax-endpoint" exchange-pattern="one-way"/>
+    </flow>
 </mule>

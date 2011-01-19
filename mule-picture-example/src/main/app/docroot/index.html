@@ -2,7 +2,7 @@
 <head>
 <title>Welcome to the picture list</title>
 <style>
-#completeWrapper {
+.wrapper {
 	position: absolute;
 	left: 0px;
 	top: 150px;
@@ -11,7 +11,7 @@
 	display: none;
 }
 
-#completed {
+.completed {
 	background-color: black;
 	color: white;
 	width: 150px;
@@ -39,6 +39,7 @@ div.download {
 		<script type="text/javascript" src="js/jquery.history.js"></script>
 		<script type="text/javascript" src="js/jquery.galleriffic.js"></script>
 		<script type="text/javascript" src="js/jquery.opacityrollover.js"></script>
+		<script type="text/javascript" src="mule/mule.js"></script>
 		<!-- We only want the thunbnails to display when javascript is disabled -->
 		<script type="text/javascript">
 			document.write('<style>.noscript { display: none; }</style>');
@@ -57,15 +58,25 @@ function requestImage(image, user) {
 	});
 }
 
-$(window).load(function () {
+function requestCharged(message)
+{
+	$('#completed2').text('Your request for picture ' + message.data + ' has been approved');
+	$('#completeWrapper2').fadeIn(1000, function() {
+  		$('#completeWrapper2').fadeOut(1000);
+  	});
+    console.debug("data:" + message.data);
+}
 
+$(window).load(function () {
+	mule.subscribe('/requestCharged', requestCharged);
 });
 
 </script>
 </head>
 
 <body>
-<div id="completeWrapper"><div id="completed">Your request has been sent</div></div>
+<div class="wrapper" id="completeWrapper"><div class="completed" id="completed">Your request has been sent</div></div>
+<div class="wrapper" id="completeWrapper2"><div class="completed" id="completed2">Your request has been sent</div></div>
 
 		<div id="page">
 			<div id="container">
@@ -89,7 +100,7 @@ $(window).load(function () {
 								<img src="img/mule1_s.jpg" alt="Mule #1" />
 							</a>
 							<div class="caption">
-								<div class="download" onclick="requestImage('img/mule1.jpg', 'mulee')">
+								<div class="download" onclick="requestImage('mule1.jpg', 'mulee')">
 									Request image
 								</div>
 								<div class="image-title">Mule #1</div>
@@ -101,7 +112,7 @@ $(window).load(function () {
 								<img src="img/mule2_s.jpg" alt="Mule #2" />
 							</a>
 							<div class="caption">
-								<div class="download" onclick="requestImage('img/mule2.jpg', 'mulee')">
+								<div class="download" onclick="requestImage('mule2.jpg', 'mulee')">
 									Request image
 								</div>
 								<div class="image-title">Mule #2</div>
@@ -113,7 +124,7 @@ $(window).load(function () {
 								<img src="img/mule3_s.jpg" alt="Mule #3" />
 							</a>
 							<div class="caption">
-								<div class="download" onclick="requestImage('img/mule3.jpg', 'mulee')">
+								<div class="download" onclick="requestImage('mule3.jpg', 'mulee')">
 									Request image
 								</div>
 								<div class="image-title">Mule #3</div>
@@ -125,7 +136,7 @@ $(window).load(function () {
 								<img src="img/mule4_s.jpg" alt="Mule #4" />
 							</a>
 							<div class="caption">
-								<div class="download" onclick="requestImage('img/mule4.jpg', 'mulee')">
+								<div class="download" onclick="requestImage('mule4.jpg', 'mulee')">
 									Request image
 								</div>
 								<div class="image-title">Mule #4</div>
