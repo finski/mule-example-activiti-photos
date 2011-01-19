@@ -1,0 +1,4 @@
+<h1>Picture Approval</h1>
+<p>
+  The user: <b>${user}</b> wants the high definition version of the image <b>${imageName}</b>.
+</p>
