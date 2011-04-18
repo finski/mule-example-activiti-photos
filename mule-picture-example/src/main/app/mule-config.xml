@@ -49,9 +49,7 @@
                 return map
             </script:script>
         </script:component>
-        <activiti:outbound-endpoint description="createRequestProcess">
-            <activiti:create-process />
-        </activiti:outbound-endpoint>
+        <activiti:create-process connector-ref="actServer" parametersExpression="#[payload]" />
     </flow>
     
     <ajax:endpoint name="ajax-endpoint" channel="/requestCharged"/>

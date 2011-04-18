@@ -18,6 +18,7 @@
         <vmtype>org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType</vmtype>
         <jdk5Name>J2SE-1.5</jdk5Name>
         <jdk.version>1.5</jdk.version>
+        <activiti.version>5.4</activiti.version>
     </properties>
 
     <build>
@@ -220,7 +221,6 @@
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-spring-config</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Mule Transports -->
@@ -228,19 +228,16 @@
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-ajax</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-http</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Mule Modules -->
@@ -248,37 +245,36 @@
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-client</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-cxf</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-management</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-scripting</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-sxc</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-xml</artifactId>
             <version>${mule.version}</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-activiti</artifactId>
+            <version>3.2.0</version>
         </dependency>
 
         <!-- for testing -->
