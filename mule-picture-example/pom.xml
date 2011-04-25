@@ -302,7 +302,7 @@
         <repository>
             <id>muleforge-repo</id>
             <name>MuleForge Repository</name>
-            <url>http://repository.muleforge.org</url>
+            <url>http://repository.muleforge.org/release</url>
             <layout>default</layout>
         </repository>
 

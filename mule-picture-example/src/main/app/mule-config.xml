@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:activiti="http://www.mulesoft.org/schema/mule/activiti"
+    xmlns:activiti="http://www.mulesoft.org/schema/mule/activiti-remote"
     xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
     xmlns:spring="http://www.springframework.org/schema/beans"
     xmlns:http="http://www.mulesoft.org/schema/mule/http"
@@ -11,7 +11,7 @@
     
     xsi:schemaLocation="
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
-        http://www.mulesoft.org/schema/mule/activiti http://www.mulesoft.org/schema/mule/activiti/3.1/mule-activiti.xsd
+        http://www.mulesoft.org/schema/mule/activiti-remote http://www.mulesoft.org/schema/mule/activiti-remote/3.2/mule-activiti-remote.xsd
         http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
         http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.1/mule-http.xsd
         http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd
